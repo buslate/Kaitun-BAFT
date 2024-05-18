@@ -1,5 +1,20 @@
---[[Kaitun]]
-             --
+--[[Kaitun]]--
+local placeId = game.PlaceId
+if placeId == 537413528 then
+    BABFT = true
+end
+
+if BABFT then
+    repeat wait() until game:IsLoaded()
+	if getgenv().Setting then else
+        getgenv().Setting = {
+            ["Kaitun"] = false
+        }
+    end
+end
+
+if getgenv().Setting["Kaitun"] == true then
+
 function normalfarm()
     while _G.FarmMoney do
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-59.1480827, 65.9903183, 825.942993,
@@ -193,3 +208,23 @@ spawn(function()
         end)
     end
 end)
+coroutine.wrap(function()
+    while task.wait() do
+         pcall(function()
+              if _G.AutoFarm then
+                   for _, character in ipairs(game.Players:GetPlayers()) do
+                        if character and character.Character then
+                             for _, part in ipairs(character.Character:GetDescendants()) do
+                                  if part:IsA("BasePart") then
+                                  part.CanCollide = false
+                                  end
+                             end
+                        end
+                   end
+              end
+         end)
+    end
+end)()
+elseif getgenv().Setting["Kaitun"] == false then
+    loadstring(game:HttpGet(("https://raw.githubusercontent.com/buslate/Build-A-Boat-For-Treasure/main/Build%20A%20Boat%20V.2.lua"), true))()
+end
